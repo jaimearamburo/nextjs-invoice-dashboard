@@ -33,7 +33,7 @@ export default function EditCustomerForm({
               id="name"
               name="name"
               type="text"
-              defaultValue={customer.name}
+              defaultValue={state.values?.name ?? customer.name}
               placeholder="Enter customer name"
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               aria-describedby="name-error"
@@ -60,7 +60,7 @@ export default function EditCustomerForm({
               id="email"
               name="email"
               type="email"
-              defaultValue={customer.email}
+              defaultValue={state.values?.email ?? customer.email}
               placeholder="Enter email address"
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               aria-describedby="email-error"
@@ -80,15 +80,15 @@ export default function EditCustomerForm({
         {/* Customer Image URL */}
         <div className="mb-4">
           <label htmlFor="image_url" className="mb-2 block text-sm font-medium">
-            Image URL
+            Image URL <span className="font-normal text-gray-500">(optional)</span>
           </label>
           <div className="relative">
             <input
               id="image_url"
               name="image_url"
               type="text"
-              defaultValue={customer.image_url}
-              placeholder="/customers/example.png"
+              defaultValue={state.values?.image_url ?? customer.image_url}
+              placeholder="/customers/example.png — leave blank for a default icon"
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               aria-describedby="image_url-error"
             />

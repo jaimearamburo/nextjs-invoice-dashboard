@@ -33,6 +33,13 @@ export type State = {
     status?: string[];
   };
   message?: string | null;
+  // The submitted values, echoed back so the form can re-seed its
+  // (uncontrolled) fields via defaultValue/defaultChecked
+  values?: {
+    customerId?: string;
+    amount?: string;
+    status?: string;
+  };
 };
 
 export async function createInvoice(prevState: State, formData: FormData){
@@ -47,6 +54,11 @@ export async function createInvoice(prevState: State, formData: FormData){
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: 'Missing Fields. Failed to Create Invoice',
+      values: {
+        customerId: formData.get('customerId')?.toString(),
+        amount: formData.get('amount')?.toString(),
+        status: formData.get('status')?.toString(),
+      },
     };
   }
 
@@ -90,6 +102,11 @@ export async function updateInvoice(
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: 'Missing Fields. Failed to Update Invoice.',
+      values: {
+        customerId: formData.get('customerId')?.toString(),
+        amount: formData.get('amount')?.toString(),
+        status: formData.get('status')?.toString(),
+      },
     };
   }
 
@@ -121,7 +138,7 @@ const CustomerFormSchema = z.object({
   id: z.string(),
   name: z.string().min(1, { message: 'Please enter a name.' }),
   email: z.string().email({ message: 'Please enter a valid email.' }),
-  image_url: z.string().min(1, { message: 'Please enter an image URL.' }),
+  image_url: z.string(),
 });
 
 const CreateCustomer = CustomerFormSchema.omit({ id: true });
@@ -134,6 +151,11 @@ export type CustomerState = {
     image_url?: string[];
   };
   message?: string | null;
+  values?: {
+    name?: string;
+    email?: string;
+    image_url?: string;
+  };
 };
 
 export async function createCustomer(
@@ -150,6 +172,11 @@ export async function createCustomer(
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: 'Missing Fields. Failed to Create Customer.',
+      values: {
+        name: formData.get('name')?.toString(),
+        email: formData.get('email')?.toString(),
+        image_url: formData.get('image_url')?.toString(),
+      },
     };
   }
 
@@ -185,6 +212,11 @@ export async function updateCustomer(
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: 'Missing Fields. Failed to Update Customer.',
+      values: {
+        name: formData.get('name')?.toString(),
+        email: formData.get('email')?.toString(),
+        image_url: formData.get('image_url')?.toString(),
+      },
     };
   }
 
