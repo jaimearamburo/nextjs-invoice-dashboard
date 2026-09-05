@@ -165,6 +165,11 @@ export async function fetchInvoiceById(id: string) {
 
     return invoice[0];
   } catch (error) {
+    // A malformed id (not a valid UUID) isn't really a database failure —
+    // treat it the same as "no matching row" so the caller's notFound() fires.
+    if (error instanceof postgres.PostgresError && error.code === '22P02') {
+      return undefined;
+    }
     console.error('Database Error:', error);
     throw new Error('Failed to fetch invoice.');
   }
@@ -234,6 +239,11 @@ export async function fetchCustomerById(id: string) {
 
     return data[0];
   } catch (error) {
+    // A malformed id (not a valid UUID) isn't really a database failure —
+    // treat it the same as "no matching row" so the caller's notFound() fires.
+    if (error instanceof postgres.PostgresError && error.code === '22P02') {
+      return undefined;
+    }
     console.error('Database Error:', error);
     throw new Error('Failed to fetch customer.');
   }
