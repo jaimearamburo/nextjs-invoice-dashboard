@@ -237,12 +237,6 @@ export async function updateCustomer(
   redirect('/dashboard/customers');
 }
 
-// delete customer server action
-export async function deleteCustomer(id: string) {
-  await sql`DELETE FROM customers WHERE id = ${id}`;
-  revalidatePath('/dashboard/customers');
-}
-
 //
 export async function authenticate(
   prevState: string | undefined,

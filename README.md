@@ -2,7 +2,7 @@
 
 A full-stack invoice and customer management dashboard, built while completing the [Next.js App Router Course](https://nextjs.org/learn). Beyond the course material, I found and fixed several real bugs and built a complete customer management feature from scratch.
 
-**[Live demo](#)** — log in with:
+**[Live demo](https://nextjs-invoice-dashboard-eta.vercel.app/)** — log in with:
 - Email: `user@nextmail.com`
 - Password: `123456`
 
