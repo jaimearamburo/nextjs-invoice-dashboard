@@ -3,6 +3,7 @@
 import { CustomerField } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
+  ArrowPathIcon,
   CheckIcon,
   ClockIcon,
   CurrencyDollarIcon,
@@ -14,7 +15,7 @@ import { useActionState } from "react";
 
 export default function Form({ customers }: { customers: CustomerField[] }) {
   const initialState: State = { message: null, errors: {} };
-  const [state, formAction] = useActionState(createInvoice, initialState);
+  const [state, formAction, isPending] = useActionState(createInvoice, initialState);
 
   return (
     <form action={formAction}>
@@ -152,7 +153,15 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
         >
           Cancel
         </Link>
-        <Button type="submit">Create Invoice</Button>
+        <Button type="submit" aria-disabled={isPending}>
+          {isPending ? (
+            <>
+              Creating... <ArrowPathIcon className="ml-2 h-4 w-4 animate-spin" />
+            </>
+          ) : (
+            'Create Invoice'
+          )}
+        </Button>
       </div>
     </form>
   );

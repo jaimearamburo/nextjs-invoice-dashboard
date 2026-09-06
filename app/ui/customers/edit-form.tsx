@@ -3,6 +3,7 @@
 import { CustomerForm } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
+  ArrowPathIcon,
   AtSymbolIcon,
   PhotoIcon,
   UserCircleIcon,
@@ -18,7 +19,7 @@ export default function EditCustomerForm({
 }) {
   const initialState: CustomerState = { message: null, errors: {} };
   const updateCustomerById = updateCustomer.bind(null, customer.id);
-  const [state, formAction] = useActionState(updateCustomerById, initialState);
+  const [state, formAction, isPending] = useActionState(updateCustomerById, initialState);
 
   return (
     <form action={formAction}>
@@ -119,7 +120,15 @@ export default function EditCustomerForm({
         >
           Cancel
         </Link>
-        <Button type="submit">Edit Customer</Button>
+        <Button type="submit" aria-disabled={isPending}>
+          {isPending ? (
+            <>
+              Saving... <ArrowPathIcon className="ml-2 h-4 w-4 animate-spin" />
+            </>
+          ) : (
+            'Edit Customer'
+          )}
+        </Button>
       </div>
     </form>
   );

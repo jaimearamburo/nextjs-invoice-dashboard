@@ -2,6 +2,7 @@
 
 import { CustomerField, InvoiceForm } from '@/app/lib/definitions';
 import {
+  ArrowPathIcon,
   CheckIcon,
   ClockIcon,
   CurrencyDollarIcon,
@@ -21,7 +22,7 @@ export default function EditInvoiceForm({
 }) {
   const initialState: State = { message: null, errors: {} };
   const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
-  const [state, formAction] = useActionState(updateInvoiceWithId, initialState)
+  const [state, formAction, isPending] = useActionState(updateInvoiceWithId, initialState)
 
 
   return (
@@ -132,7 +133,15 @@ export default function EditInvoiceForm({
         >
           Cancel
         </Link>
-        <Button type="submit">Edit Invoice</Button>
+        <Button type="submit" aria-disabled={isPending}>
+          {isPending ? (
+            <>
+              Saving... <ArrowPathIcon className="ml-2 h-4 w-4 animate-spin" />
+            </>
+          ) : (
+            'Edit Invoice'
+          )}
+        </Button>
       </div>
     </form>
   );
